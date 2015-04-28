@@ -23,6 +23,18 @@ jackdynconagent -c ~/config.yml
 The example file contains rules based on my personal setup, so you're gonna have to go change it to match your personal setup.
 If you are having trouble with any of these steps, feel free to ask for support. (see contact section below)
 
+On Arch Linux it is even easier to install and use the JACK Dynamic Connection Agent!
+Performing the following commands will get you set-up almost immediately, you don't even have to clone the repo (you will, however, have to run these commands as root)!
+These commands will install all dependencies and work everything out for you. (REMINDER: THIS IS ONLY FOR ARCH LINUX)
+````
+mkdir /tmp/build
+cd /tmp/build
+pacman -S base-devel wget
+wget https://raw.githubusercontent.com/rewbycraft/JACKDynamicConnectionAgent/master/PKGBUILD
+makepkg -si
+````
+And done!
+
 
 ##Dependencies:
 - JACK
