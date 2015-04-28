@@ -1,0 +1,8 @@
+processcurrent: true
+patterns:
+  - client: vlc_[0-9]+
+    ports:
+      - name: out_1
+        target: "jack_mixer:VLC L"
+      - name: out_2
+        target: "jack_mixer:VLC R"
