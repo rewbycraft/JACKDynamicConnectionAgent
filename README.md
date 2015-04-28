@@ -4,17 +4,39 @@ The purpose of this program is to dynamically match JACK clients and remap their
 It does this based on regex rules. (See config.yml for an example with vlc)
 This program is primarily for things like vlc which do not allow you to specify what ports to link to what (VLC is forgiving in that it lets you say what program, but it sadly doesn't let you say what ports to connect to).
 
+#Quickstart
+First off, you're gonna wanna make sure to install the dependencies. This is specific to your distro and I can not help you with this.
+Then you will wanna compile this program, do this by running the following commands in the root of the cloned repository:
+````
+mkdir build
+cd build
+cmake ..
+make
+sudo make install
+````
+This will have installed the program as jackdynconagent under /usr/local.
+Now you'll wanna copy the example config file to, for example, your home directory.
+You can then run the program with:
+````
+jackdynconagent -c ~/config.yml
+````
+The example file contains rules based on my personal setup, so you're gonna have to go change it to match your personal setup.
+If you are having trouble with any of these steps, feel free to ask for support. (see contact section below)
+
+
 ##Dependencies:
 - JACK
 - Yaml-C++
 - LibProcPS (most linux distros include this, as it is what ps and such use)
 - The Lean Mean C++ Option Parser (included in repository)
 - EasyLogging++ (automatically downloaded into repository via git subtree)
+- LibFindMacros (automatically downloaded into repository via git subtree)
 
 ##Contributors:
 - rewbycraft (Project Owner)
 
 ##TODO:
-- Add a way to inject the pid of a program into a replace rule. (This is to allow one to map programs that don't support JACK natively, but instead use the alsa-jack plugin.)
-- Add a way to rename clients (if possible).
+- Allow the regex pid parser to parse more than one pid per regex.
 
+##Contact
+You can find my contact information at [http://roelf.org/contact](http://roelf.org/contact)

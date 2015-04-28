@@ -8,6 +8,7 @@
 #include <util.hpp>
 #include <exceptions.hpp>
 #include <execinfo.h>
+#include <proc/readproc.h>
 
 INITIALIZE_EASYLOGGINGPP
 

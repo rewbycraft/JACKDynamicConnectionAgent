@@ -8,7 +8,7 @@
 #include <regex>
 
 class PatternPortMatch {
-	std::regex regex;
+	std::string regex;
 	std::string target;
 	bool shouldDisconnect;
 
@@ -17,7 +17,7 @@ public:
 											   shouldDisconnect(shouldDisconnect),
 											   target(target) { }
 
-	const std::regex &getRegex() const {
+	const std::string &getRegex() const {
 		return regex;
 	}
 
@@ -31,7 +31,7 @@ public:
 };
 
 class PatternClientMatch {
-	std::regex regex;
+	std::string regex;
 	std::vector<PatternPortMatch*> portRules;
 public:
 	PatternClientMatch(std::string regex, std::vector<PatternPortMatch *> const ports) : regex(regex),
@@ -44,7 +44,7 @@ public:
 	}
 
 
-	const std::regex &getRegex() const {
+	const std::string &getRegex() const {
 		return regex;
 	}
 

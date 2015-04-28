@@ -19,6 +19,7 @@ void portRegisterCallback(jack_port_id_t portId, int reg, void *arg) {
 }
 
 extern void shutdown();
+
 void jackShutdownCallback(jack_status_t code, const char *reason, void *arg) {
 	Jack *these = (Jack *) arg;
 	if (!these->isInShutdown()) {
@@ -45,23 +46,20 @@ void jackEventThread(Jack *these) {
 						jack_port_t *port = portEvent->getPort();
 						std::string clientName = util::split(jack_port_name(port), ":")[0];
 						std::string portName = util::split(jack_port_name(port), ":")[1];
-						LOG(INFO) << "Got notified of a new port. Client name: " <<
-						clientName << " Port name: " << portName << " Scanning for matches...";
-						for (auto clientRule: these->getPatterns()) {
-							if (std::regex_match(clientName, clientRule->getRegex())) {
-								//The client name matched
-								LOG(INFO) << "Matched against client-rule " << clientRule << ". Applying port rules...";
-								for (auto portRule: clientRule->getPortRules()) {
-									if (std::regex_match(portName, portRule->getRegex())) {
-										LOG(INFO) <<
-										"Matched against port-rule " << portRule << ". Applying rule...";
-										if (portRule->getShouldDisconnect())
-											jack_port_disconnect((jack_client_t *) these->getClient(), port);
-										jack_connect((jack_client_t *) these->getClient(), jack_port_name(port), portRule->getTarget().c_str());
-									}
+						LOG(INFO) << "Got notified of a new port. Client name: " << clientName << " Port name: " << portName << " Scanning for matches...";
+						for (auto clientRule: these->getPatterns())
+							for (auto clientRegex: util::parseRegex(clientRule->getRegex()))
+								if (std::regex_search(clientName, clientRegex)) {
+									LOG(INFO) << "Matched against client-rule " << clientRule << ". Applying port rules...";
+									for (auto portRule: clientRule->getPortRules())
+										for (auto portRegex: util::parseRegex(portRule->getRegex()))
+											if (std::regex_search(portName, portRegex)) {
+												LOG(INFO) << "Matched against port-rule " << portRule << ". Applying rule...";
+												if (portRule->getShouldDisconnect())
+													jack_port_disconnect((jack_client_t *) these->getClient(), port);
+												jack_connect((jack_client_t *) these->getClient(), jack_port_name(port), portRule->getTarget().c_str());
+											}
 								}
-							}
-						}
 						break;
 					};
 
@@ -93,7 +91,7 @@ void Jack::connect() {
 	jack_status_t status;
 
 	LOG(DEBUG) << "Connecting to jack...";
-	jackClient = jack_client_open(JACKNAME, JackNoStartServer , &status);
+	jackClient = jack_client_open(JACKNAME, JackNoStartServer, &status);
 
 	if ((jackClient == nullptr) || (jackClient == NULL) || (jackClient == 0)) {
 		LOG(ERROR) << "Could not connect to JACK. Failed with status " << status << ". JACK server failure: " << ((status & JackServerFailed) ? "true" : "false");
