@@ -49,11 +49,11 @@ void jackEventThread(Jack *these) {
 						LOG(INFO) << "Got notified of a new port. Client name: " << clientName << " Port name: " << portName << " Scanning for matches...";
 						for (auto clientRule: these->getPatterns())
 							for (auto clientRegex: util::parseRegex(clientRule->getRegex()))
-								if (std::regex_search(clientName, clientRegex)) {
+								if (std::regex_match(clientName, clientRegex)) {
 									LOG(INFO) << "Matched against client-rule " << clientRule << ". Applying port rules...";
 									for (auto portRule: clientRule->getPortRules())
 										for (auto portRegex: util::parseRegex(portRule->getRegex()))
-											if (std::regex_search(portName, portRegex)) {
+											if (std::regex_match(portName, portRegex)) {
 												LOG(INFO) << "Matched against port-rule " << portRule << ". Applying rule...";
 												if (portRule->getShouldDisconnect())
 													jack_port_disconnect((jack_client_t *) these->getClient(), port);
