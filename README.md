@@ -32,6 +32,8 @@ If you are having trouble with any of these steps, feel free to ask for support.
 - EasyLogging++ (automatically downloaded into repository via git subtree)
 - LibFindMacros (automatically downloaded into repository via git subtree)
 
+Important note: Even though "The Lean Mean C++ Option Parser", EasyLogging++ and LibFindMacros are automatically imported into this repository, they are not my property. They each have their own licence and owners. I merely include them as to make life easier on whomever decided to clone this repository. All credit for these dependencies goes to their respective (and respectable) owners.
+
 ##Contributors:
 - rewbycraft (Project Owner)
 
