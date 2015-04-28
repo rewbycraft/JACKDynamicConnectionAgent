@@ -15,6 +15,6 @@ include_directories(include submodules/easylogging/src submodules/optionparser)
 add_executable(jackdynconagent ${SOURCE_FILES})
 target_include_directories(jackdynconagent SYSTEM PRIVATE ${YAMLCPP_INCLUDE_DIR} ${JACK_INCLUDE_DIRS} ${PROCPS_INCLUDE_DIRS})
 target_link_libraries(jackdynconagent ${YAMLCPP_LIBRARY} ${JACK_LIBRARIES} ${PROCPS_LIBRARIES})
-target_compile_options(jackdynconagent PRIVATE ${JACK_DEFINITIONS} -g -rdynamic)
+target_compile_options(jackdynconagent PRIVATE ${JACK_DEFINITIONS} -g -rdynamic -ggdb)
 
 INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/jackdynconagent DESTINATION bin)
