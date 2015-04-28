@@ -7,6 +7,7 @@ This program is primarily for things like vlc which do not allow you to specify 
 ##Dependencies:
 - JACK
 - Yaml-C++
+- LibProcPS (most linux distros include this, as it is what ps and such use)
 - The Lean Mean C++ Option Parser (included in repository)
 - EasyLogging++ (automatically downloaded into repository via git subtree)
 

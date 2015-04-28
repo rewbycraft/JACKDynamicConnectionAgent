@@ -14,6 +14,8 @@ namespace util {
 	std::vector<std::string> split(const std::string& input, const std::string& regex);
 
 	std::vector<PatternClientMatch*> parsePatternNode(const YAML::Node &node);
+
+	std::vector<int> findPidByRegex(const std::string &regex_str);
 }
 
 #endif //JACKDYNCONAGENT_UTIL_HPP

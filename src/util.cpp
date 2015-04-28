@@ -33,4 +33,11 @@ namespace util {
 
 		return result;
 	}
+
+	std::vector<int> findPidByRegex(const std::string &regex_str) {
+		std::vector<int> result;
+		std::regex regex(regex_str);
+
+		return result;
+	}
 }
