@@ -14,6 +14,7 @@ provides=('jackdynconagent')
 conflicts=('jackdynconagent')
 source=("$_pkgname::git://github.com/rewbycraft/JACKDynamicConnectionAgent.git#branch=master")
 sha256sums=('SKIP')
+options=( '!strip' '!buildflags' )
 
 pkgver() {
   cd "$srcdir/$_pkgname"
