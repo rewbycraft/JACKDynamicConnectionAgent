@@ -18,3 +18,4 @@ target_link_libraries(jackdynconagent ${YAMLCPP_LIBRARY} ${JACK_LIBRARIES} ${PRO
 target_compile_options(jackdynconagent PRIVATE ${JACK_DEFINITIONS} -g -rdynamic -ggdb)
 
 INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/jackdynconagent DESTINATION bin)
+
