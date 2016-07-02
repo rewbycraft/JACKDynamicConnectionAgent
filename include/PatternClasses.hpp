@@ -11,11 +11,13 @@ class PatternPortMatch {
 	std::string regex;
 	std::string target;
 	bool shouldDisconnect;
+	bool reverseConnect;
 
 public:
-	PatternPortMatch(std::string regex, std::string target, bool shouldDisconnect = true) : regex(regex),
+	PatternPortMatch(std::string regex, std::string target, bool shouldDisconnect = true, bool reverseConnect = false) : regex(regex),
 											   shouldDisconnect(shouldDisconnect),
-											   target(target) { }
+											   target(target),
+											   reverseConnect(reverseConnect) { }
 
 	const std::string &getRegex() const {
 		return regex;
@@ -27,6 +29,10 @@ public:
 
 	const std::string &getTarget() const {
 		return target;
+	}
+
+	const bool getReverseConnect() const {
+		return reverseConnect;
 	}
 };
 

@@ -57,7 +57,10 @@ void jackEventThread(Jack *these) {
 												LOG(INFO) << "Matched against port-rule " << portRule << ". Applying rule...";
 												if (portRule->getShouldDisconnect())
 													jack_port_disconnect((jack_client_t *) these->getClient(), port);
-												jack_connect((jack_client_t *) these->getClient(), jack_port_name(port), portRule->getTarget().c_str());
+												if (!portRule->getReverseConnect())
+													jack_connect((jack_client_t *) these->getClient(), jack_port_name(port), portRule->getTarget().c_str());
+												else
+													jack_connect((jack_client_t *) these->getClient(), portRule->getTarget().c_str(), jack_port_name(port));
 											}
 								}
 						break;

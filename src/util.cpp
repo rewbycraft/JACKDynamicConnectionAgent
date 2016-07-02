@@ -12,9 +12,11 @@
 namespace util {
 	//http://stackoverflow.com/a/9437426
 	//Credit where credit is due.
-	std::vector<std::string> split(const std::string &input, const std::string &regex) {
+	std::vector<std::string> split(const std::string &_input, const std::string &regex) {
+		std::string input (_input);
+		std::regex ex(regex);
 		//passing -1 as the submatch index parameter performs splitting
-		std::sregex_token_iterator first{input.begin(), input.end(), std::regex(regex), -1}, last;
+		std::regex_token_iterator<std::string::iterator> first(input.begin(), input.end(), ex, -1), last;
 		return {first, last};
 	}
 
@@ -27,7 +29,7 @@ namespace util {
 
 			assert(client["portrules"].IsSequence());
 			for (auto port: (YAML::Node) client["portrules"])
-				clientPorts.push_back(new PatternPortMatch(port["name"].as<std::string>(), port["target"].as<std::string>(), ((YAML::Node) port["disconnect"]).as<bool>(true)));
+				clientPorts.push_back(new PatternPortMatch(port["name"].as<std::string>(), port["target"].as<std::string>(), ((YAML::Node) port["disconnect"]).as<bool>(true), ((YAML::Node) port["reverse"]).as<bool>(false)));
 
 			result.push_back(new PatternClientMatch(clientRegex, clientPorts));
 		}
