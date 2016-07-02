@@ -24,3 +24,9 @@ patterns:
         target: "jack_mixer:Firefox L"
       - name: out_001
         target: "jack_mixer:Firefox R"
+  - client: "PortAudio"
+    portrules:
+      - name: "out_[0-9]+[02468]"
+        target: "jack_mixer:PortAudio L"
+      - name: "out_[0-9]+[13579]"
+        target: "jack_mixer:PortAudio R"
